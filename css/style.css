@@ -1,0 +1,63 @@
+body{
+	font-family: 'Oswald', sans-serif;
+	font-weight: lighter;
+    letter-spacing: 1px;
+
+}
+body, .container,  #map {
+    width: 810px;
+    height: 666px;
+}
+.panel {
+    background-color: #183884;
+    text-align: center;
+    color: white;
+    margin-bottom: 0;
+
+}
+.branch_section{
+	background: #EAEAEA;
+	padding-top: 30px;
+}
+.current_area{
+	text-align: center;
+	color: #767676;
+	padding-bottom: 25px;
+}
+hr{
+	border-top: 1px solid #949494;
+}
+.form-control{
+	border: 1px solid #949494;
+    border-radius: 0;
+    padding: 4px 12px;
+}
+.text-bold{
+	font-weight: bold;
+}
+p{
+	display: inline-block;
+	 margin-bottom: 3px;
+	 font-size: 12px;
+}
+
+.bd_rght{
+	border-right: 1.5px solid #C3BEBE;
+}
+h5{
+	margin-bottom: 4px;
+}
+.no_mg{
+	margin:0;
+}
+h1{
+	font-size: 26px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.panel-body {
+    padding: 24px;
+}
+span{
+	font-size: 12px;
+}

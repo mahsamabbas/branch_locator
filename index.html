@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>Dollar East Exchange Company | Branch Locator</title>
+ <link href='https://fonts.googleapis.com/css?family=Oswald:400' rel='stylesheet' type='text/css'>
+ <!-- CSS Files -->
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+
+  <!-- JS Files -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.js"></script>
+  <script type="text/javascript" src="js/angular.js"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA-4VNBReECX_wZfWzlyM8noro_Om79zDg" type="text/javascript"></script> 
+  
+</head>
+
+<body ng-app="myApp">
+  <div class="container" ng-controller="mapCtrl">
+
+  <div class="row">
+  <div class="panel panel-default">
+  <div class="panel-body">
+   <h1 class="no_mg">Branch Locator</h1>
+  </div>
+</div>
+<div class="branch_section col-md-12 col-sm-12">
+  <div class="col-sm-6 col-md-6 bd_rght">
+    <select class="form-control" ng-model="selectedCity" ng-options="Locate.city as Locate.city for Locate in locations | unique:'city'" ng-change="updateCity(selectedCity);selectedArea='';">
+    <option value="">Select City</option>
+  </select>
+</div>
+ <div class="col-sm-6 col-md-6">
+  <select  class="form-control" ng-model="selectedArea" ng-options="Locate.area as Locate.area for Locate in locations | unique:'area' | filter:{ city : selectedCity}" ng-change="updateArea(selectedArea)" ng-disabled="selectedCity ? false : true">
+  <option value="">Select Area</option>
+  </select>
+  	</div>
+<div class="clearfix"></div>
+    <hr/>
+    <div class="current_area" ng-show="selectedArea && currentArea">
+      <h2 class="text-bold">{{currentArea.area}}</h2>
+
+      <h5>{{currentArea.address}}</h5>
+
+      <span ng-show="currentArea.home" class="text-bold">Home Remit:</span><p ng-show="currentArea.home">{{currentArea.home}},</p>
+      <span ng-show="currentArea.general" class="text-bold">Gen. Enquiry:</span><p ng-show="currentArea.general">{{currentArea.general}}</p>
+      <br/>
+      <span ng-show="currentArea.DD || currentArea.TT" class="text-bold">DD/TT:</span><p ng-show="currentArea.DD || currentArea.TT" >{{currentArea.DD}}, {{currentArea.TT}}</p>
+      <span ng-show="currentArea.Fax" class="text-bold">Fax:</span><p ng-show="currentArea.Fax">{{currentArea.Fax}}</p>
+    </div>
+    </div>
+    <!-- Google Map -->
+  	<div id="map">
+  	</div>
+</div>
+  </div>
+  <script type="text/javascript" src="js/ctrl.js"></script>
+</body>
+
+</html>
+
