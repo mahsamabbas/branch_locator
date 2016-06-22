@@ -4,9 +4,7 @@
 var app = angular.module('myApp', []).
 controller('mapCtrl', function($scope) {
 
-    /* All Ctrl Logic */
-    
-
+   
     /*  locations */
      $scope.locations = [
         {city:'Abbottabad', address: 'Shop No 2, Kamran Plaza Opposite Daewoo Terminal, Mandian, Abbottabad, Pakistan', Country:'Pakistan', area:' Mandian', general:'+92 992 385194', home:'+92 992 385195', TT:'', DD:'', Fax:'', uan:''},
@@ -29,6 +27,7 @@ controller('mapCtrl', function($scope) {
         {city:'Lahore', address: 'G-07 & G-10, Al Latif Center, Main Boulevard, Gulberg III, Lahore, Pakistan', Country:'Pakistan', area:'Gulberg', general:'+92 42 35872025', home:'+92 42 35872896, +92 42 35873025', TT:'+92 42 35872891-3', DD:'+92 42 35872891-3', Fax:'+92 42 35872890', uan:'+92 42 111-900-200'},
         {city:'Lahore', address: 'Shop No. 01 & 02, Mecca Tower, Outside Bhatti Gate, Opposite Gamay Shah Karbala, Lahore, Pakistan', Country:'Pakistan', area:'Bhatti Gate', general:'+92 42 37361576-77, 37112376-8', home:'+92 42  37361577, 37112377 ', TT:'', DD:'', Fax:'', uan:''},
         {city:'Lahore', address: '280-Ground Floor, Panorama Centre, Lahore, Pakistan', Country:'Pakistan', area:'The Mall', general:'+92 42 36301960', home:'+92 42 36375106-7', TT:'', DD:'+92 42 36361311', Fax:'+92 42 36375109', uan:''},
+        {city:'Lahore', address: 'Shop No 14/A, Davis Road, Adjacent Gourmet Bakers, Lahore, Pakistan', Country:'Pakistan', area:'Davis Road', general:'+92 42 36300243-46', home:'', TT:'', DD:'', Fax:'+92 42 36300040', uan:''},
         {city:'Mandi Bahauddin', address: 'Sadar Chowk,Main Bazar , Mandi Bahauddin, Pakistan', Country:'Pakistan', area:'Sadar Chowk', general:'+92 546 501217, +92 546 501218', home:'', TT:'', DD:'', Fax:'+92 546 501486', uan:'+92 546 111-900-200'},
         {city:'Mansehra', address: 'Shop No. 1, Sattar Kahan Market, Abbottabad Road , Mansehra, Pakistan', Country:'Pakistan', area:'Abbottabad Road', general:'+92 997 301571', home:'+92 997 301572', TT:'', DD:'', Fax:'+92 997 301573', uan:''},
         {city:'Mirpur', address: '40 - Muhammadi Plaza, Allama Iqbal Road, Mirpur, Pakistan', Country:'Pakistan', area:'Allama Iqbal Road', general:'+92 5827 443766', home:'+92 5827 443737, +92 5827 443748', TT:'+92 5827 443766, +92 5827 443750', DD:'+92 5827 443766, +92 5827 443750', Fax:'+92-5827-443778', uan:'+92 5827 111-900-200'},
@@ -43,7 +42,9 @@ controller('mapCtrl', function($scope) {
 
     ];
 
-    initialize();
+     /* All Ctrl Logic */
+
+   // initialize();
 
     /* City Filter*/
     $scope.updateCity = function(city) {
@@ -52,41 +53,95 @@ controller('mapCtrl', function($scope) {
        
             if (item.city == city) {
                 filterLoc.push(item);
+
             } 
         });
-        initialize(filterLoc)
+        initialize();
     }
 
     /* Area Filter*/
     $scope.updateArea = function(area) {
-      
-        var filterLoc = [];
+        
+        var currentAddress = '';
         $scope.currentArea;
         angular.forEach($scope.locations, function(item, index) {
 
             if (item.area == area) {
-                filterLoc.push(item);
-                $scope.currentArea = filterLoc[0];
+                currentAddress = item.address;
+                 console.log(item.address);
+                 console.log(currentAddress);
+                 $scope.currentArea = item;
                
             } 
         });
-       initialize(filterLoc)
+       initialize(currentAddress, 16);
     }
 
-   
-
-/* Render Map */
 var geocoder;
+var map;
+//var address = "Shop No 2, Kamran Plaza Opposite Daewoo Terminal, Mandian, Abbottabad, Pakistan";
+
+function initialize(add, zoom) {
+
+  var address = add;
+  geocoder = new google.maps.Geocoder();
+  var latlng = new google.maps.LatLng(30.375321, 69.345116);
+  var myOptions = {
+    zoom: zoom ? zoom : 6,
+    center: latlng,
+    mapTypeControl: true,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    },
+    navigationControl: true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  };
+  map = new google.maps.Map(document.getElementById("map"), myOptions);
+  if (geocoder) {
+    geocoder.geocode({
+      'address': address
+    }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
+          map.setCenter(results[0].geometry.location);
+
+          var infowindow = new google.maps.InfoWindow({
+            content: '<b>' + address + '</b>',
+            size: new google.maps.Size(150, 50)
+          });
+
+          var marker = new google.maps.Marker({
+            position: results[0].geometry.location,
+            map: map,
+            title: address
+          });
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+          });
+
+        } else {
+          console.log("No results found");
+        }
+      } else {
+        console.log("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+/* Render Map */
+/*var geocoder;
 var map;
 var bounds = new google.maps.LatLngBounds();
 
 function initialize(locations) {
-    map = new google.maps.Map(
-    document.getElementById("map"), {
-        center: new google.maps.LatLng(30.375321, 69.345116),
-        zoom: 7,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
+    
+
+    map = new google.maps.Map(document.getElementById('map')); 
+    map.setZoom(7);      // This will trigger a zoom_changed on the map
+    map.setCenter(new google.maps.LatLng(30.375321, 69.345116));
+    map.setMapTypeId(google.maps.MapTypeId.ROADMAP);    
+   
     geocoder = new google.maps.Geocoder();
 
     if(locations){
@@ -95,15 +150,16 @@ function initialize(locations) {
             geocodeAddress(locations[i]);
         }
     }    
-}
+}*/
 
-
+/*
 function geocodeAddress(locations) {
    
     var title = locations.city;
     var address = locations.address;
     var url = locations.city;
-    
+    var markerBounds = new google.maps.LatLngBounds();
+
     geocoder.geocode({
         'address': locations.address
     },
@@ -119,6 +175,23 @@ function geocodeAddress(locations) {
                 address: address,
                 url: url
             })
+            // Extend markerBounds with each random point.
+             markerBounds.extend(results[0].geometry.location);
+            map.panTo(marker.getPosition());
+            map.setZoom(22);
+            console.log('position', marker.getPosition());
+            map.setCenter(marker.getPosition());
+            map.fitBounds(markerBounds);
+            map.setCenter(markerBounds.getCenter());
+            // map.addListener('center_changed', function() {
+            //     // 3 seconds after the center of the map has changed, pan back to the
+            //     // marker.
+            //     window.setTimeout(function() {
+                 
+            //     }, 1000);
+            //   });
+
+             
             infoWindow(marker, map, title, address, url);
             bounds.extend(marker.getPosition());
             map.fitBounds(bounds);
@@ -126,9 +199,9 @@ function geocodeAddress(locations) {
             console.log("geocode of " + address + " failed:" + status);
         }
     });
-}
+}*/
 
-function infoWindow(marker, map, title, address, url) {
+/*function infoWindow(marker, map, title, address, url) {
     google.maps.event.addListener(marker, 'click', function () {
         var html = "<div><h3>" + title + "</h3><p>" + address + "</p></div>";
         iw = new google.maps.InfoWindow({
@@ -140,8 +213,8 @@ function infoWindow(marker, map, title, address, url) {
 }
 
 
-});
- 
+});*/
+ });
 /**
  * Filters out all duplicate items from an array by checking the specified key
  * @param [key] {string} the name of the attribute of each object to compare for uniqueness
