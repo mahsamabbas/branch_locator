@@ -22,12 +22,12 @@ controller('mapCtrl', function($scope) {
         {city:'Karachi', address: 'Shop No: 09, Ground Floor - Amber Castle, 21-A, P.E.C.H.S, Block 6, Opposite Lal Kothi,  Sharah-e-Faisal, Karachi, Pakistan', Country:'Pakistan', area:'Sharah-e-Faisal', general:'+92 21 34322687', home:'+92 21 34322686', TT:'+92 21 34322682-83', DD:'+92 21 34322681', Fax:'+92 21 34322685', uan:''},
         {city:'Kharian', address: 'Shop - 1 & 2, Dawood Rasha Plaza, G.T Road, Kharian, Pakistan', Country:'Pakistan', area:'Dawood Rasha Plaza', general:'+92 53 7601223,4 & 6', home:'+92 53 7601222', TT:'', DD:'', Fax:'+92 53 7601225', uan:''},
         {city:'Lahore', address: 'Allama Iqbal International Airport, Lahore, Pakistan', Country:'Pakistan', area:'Allama Iqbal International Airport', general:'+92 42 36611441-4', home:'', TT:'', DD:'', Fax:'+92 42 36611445', uan:''},
-        {city:'Lahore', address: '103 - R Block, DHA - Phase II, Near Lalak Jan Chowk, Lahore, Pakistan', Country:'Pakistan', area:'Defence', general:'+92 42 35745288', home:'+92 42 35745289', TT:'+92 42 35745284-85', DD:'+92 42 35745284-85', Fax:'+92 42 35745290 ', uan:''},
-        {city:'Lahore', address: 'Shop - 881A, Block D, Faisal Town, Lahore, Pakistan', Country:'Pakistan', area:'Faisal Town', general:'+92 42 35221701', home:'+92 42 35221694', TT:'+92 42 35221702', DD:'+92 42 35221702', Fax:'+92 42 35221697', uan:''},
-        {city:'Lahore', address: 'G-07 & G-10, Al Latif Center, Main Boulevard, Gulberg III, Lahore, Pakistan', Country:'Pakistan', area:'Gulberg', general:'+92 42 35872025', home:'+92 42 35872896, +92 42 35873025', TT:'+92 42 35872891-3', DD:'+92 42 35872891-3', Fax:'+92 42 35872890', uan:'+92 42 111-900-200'},
-        {city:'Lahore', address: 'Shop No. 01 & 02, Mecca Tower, Outside Bhatti Gate, Opposite Gamay Shah Karbala, Lahore, Pakistan', Country:'Pakistan', area:'Bhatti Gate', general:'+92 42 37361576-77, 37112376-8', home:'+92 42  37361577, 37112377 ', TT:'', DD:'', Fax:'', uan:''},
-        {city:'Lahore', address: '280-Ground Floor, Panorama Centre, Lahore, Pakistan', Country:'Pakistan', area:'The Mall', general:'+92 42 36301960', home:'+92 42 36375106-7', TT:'', DD:'+92 42 36361311', Fax:'+92 42 36375109', uan:''},
-        {city:'Lahore', address: 'Shop No 14/A, Davis Road, Adjacent Gourmet Bakers, Lahore, Pakistan', Country:'Pakistan', area:'Davis Road', general:'+92 42 36300243-46', home:'', TT:'', DD:'', Fax:'+92 42 36300040', uan:''},
+        {city:'Lahore', address: 'Lalik chowk, Lahore, Pakistan', Country:'Pakistan', area:'Defence', general:'+92 42 35745288', home:'+92 42 35745289', TT:'+92 42 35745284-85', DD:'+92 42 35745284-85', Fax:'+92 42 35745290 ', uan:''},
+        {city:'Lahore', address: 'Faisal Town, Lahore, Pakistan', Country:'Pakistan', area:'Faisal Town', general:'+92 42 35221701', home:'+92 42 35221694', TT:'+92 42 35221702', DD:'+92 42 35221702', Fax:'+92 42 35221697', uan:''},
+        {city:'Lahore', address: 'Al Latif Center, Main Boulevard, Gulberg III, Lahore, Pakistan', Country:'Pakistan', area:'Gulberg', general:'+92 42 35872025', home:'+92 42 35872896, +92 42 35873025', TT:'+92 42 35872891-3', DD:'+92 42 35872891-3', Fax:'+92 42 35872890', uan:'+92 42 111-900-200'},
+        {city:'Lahore', address: 'Mecca Tower, Outside Bhatti Gate, Opposite Gamay Shah Karbala, Lahore, Pakistan', Country:'Pakistan', area:'Bhatti Gate', general:'+92 42 37361576-77, 37112376-8', home:'+92 42  37361577, 37112377 ', TT:'', DD:'', Fax:'', uan:''},
+        {city:'Lahore', address: 'Panorama Centre, Lahore, Pakistan', Country:'Pakistan', area:'The Mall', general:'+92 42 36301960', home:'+92 42 36375106-7', TT:'', DD:'+92 42 36361311', Fax:'+92 42 36375109', uan:''},
+        {city:'Lahore', address: 'Davis Road, Lahore, Pakistan', Country:'Pakistan', area:'Davis Road', general:'+92 42 36300243-46', home:'', TT:'', DD:'', Fax:'+92 42 36300040', uan:''},
         {city:'Mandi Bahauddin', address: 'Sadar Chowk,Main Bazar , Mandi Bahauddin, Pakistan', Country:'Pakistan', area:'Sadar Chowk', general:'+92 546 501217, +92 546 501218', home:'', TT:'', DD:'', Fax:'+92 546 501486', uan:'+92 546 111-900-200'},
         {city:'Mansehra', address: 'Shop No. 1, Sattar Kahan Market, Abbottabad Road , Mansehra, Pakistan', Country:'Pakistan', area:'Abbottabad Road', general:'+92 997 301571', home:'+92 997 301572', TT:'', DD:'', Fax:'+92 997 301573', uan:''},
         {city:'Mirpur', address: '40 - Muhammadi Plaza, Allama Iqbal Road, Mirpur, Pakistan', Country:'Pakistan', area:'Allama Iqbal Road', general:'+92 5827 443766', home:'+92 5827 443737, +92 5827 443748', TT:'+92 5827 443766, +92 5827 443750', DD:'+92 5827 443766, +92 5827 443750', Fax:'+92-5827-443778', uan:'+92 5827 111-900-200'},
@@ -110,6 +110,7 @@ function initialize(add, zoom) {
             size: new google.maps.Size(150, 50)
           });
 
+         
           var marker = new google.maps.Marker({
             position: results[0].geometry.location,
             map: map,
